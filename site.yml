@@ -1,0 +1,64 @@
+site:
+  title: "Desigualdad en el acceso a Internet fijo"
+  subtitle: "Un análisis territorial para la República Dominicana"
+  description: "Colección viva de técnicas estadísticas, preguntas de investigación y resultados sobre conectividad, inclusión y desigualdad digital."
+  author: "Wilson Ramirez, Ph.D"
+  institution: "INTEC"
+  year: 2026
+  language: "es"
+  linkedin: "https://www.linkedin.com/in/wilson-ram%C3%ADrez-7607a6261/"
+  accent: "#FDE725"
+  primary: "#10294A"
+  secondary: "#21908C"
+
+presentation:
+  file: "presentation/Analisis_de_la_conectividad_documento_maestro.pptx"
+  download_name: "Analisis_de_la_conectividad_documento_maestro.pptx"
+  image_format: "png"
+  image_quality: 88
+  render_dpi: 120
+  thumbnail_width: 520
+  thumbnail_format: "jpg"
+
+chapters:
+  - id: "portada"
+    title: "Presentación"
+    start: 1
+    end: 1
+  - id: "analisis-descriptivo"
+    title: "Análisis descriptivo: ¿dónde está el centro?"
+    start: 2
+    end: 11
+  - id: "marco-metodologico"
+    title: "Marco metodológico"
+    start: 12
+    end: 16
+  - id: "brechas-oportunidades"
+    title: "Brechas y oportunidades"
+    start: 17
+    end: 21
+  - id: "agrupamientos"
+    title: "Agrupamientos territoriales"
+    start: 22
+    end: 25
+  - id: "hallazgos"
+    title: "Hallazgos y cierre"
+    start: 26
+    end: 28
+
+# Opcional: sustituye o amplía la salida de una diapositiva sin editar el script.
+# Los números corresponden a la posición de la diapositiva en PowerPoint.
+slide_overrides:
+  1:
+    summary: "Portada del documento maestro de investigación sobre conectividad territorial."
+  2:
+    summary: "Capítulo tutorial dedicado a localizar el centro, la dispersión y los extremos de la conectividad."
+  10:
+    summary: "Evolución anual de la media, el máximo y el mínimo provincial entre 2017 y 2024."
+  11:
+    summary: "Comparación longitudinal de las trayectorias regionales de densidad de Internet fijo."
+
+# Para incluir una visualización interactiva, copie el HTML a static/embeds y añada:
+# slide_overrides:
+#   17:
+#     embed: "assets/embeds/mapa_interactivo.html"

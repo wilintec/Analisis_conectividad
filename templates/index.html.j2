@@ -1,0 +1,121 @@
+<!doctype html>
+<html lang="{{ site.language | default('es') }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="{{ site.description }}">
+  <meta name="author" content="{{ site.author }}">
+  <meta property="og:title" content="{{ site.title }}">
+  <meta property="og:description" content="{{ site.description }}">
+  <meta property="og:type" content="website">
+  <meta name="theme-color" content="{{ site.primary | default('#10294A') }}">
+  <title>{{ site.title }}</title>
+  <link rel="stylesheet" href="assets/styles.css">
+  <style>
+    :root {
+      --primary: {{ site.primary | default('#10294A') }};
+      --secondary: {{ site.secondary | default('#21908C') }};
+      --accent: {{ site.accent | default('#FDE725') }};
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+
+  <header class="hero" id="inicio">
+    <nav class="topbar" aria-label="Navegación principal">
+      <a class="brand" href="#inicio"><span class="brand-mark">RD</span><span>Conectividad territorial</span></a>
+      <button class="menu-button" type="button" aria-expanded="false" aria-controls="chapter-nav">Capítulos</button>
+      <div class="chapter-nav" id="chapter-nav">
+        {% for chapter in chapters %}<a href="#{{ chapter.id }}">{{ chapter.title }}</a>{% endfor %}
+      </div>
+    </nav>
+
+    <div class="hero-grid">
+      <div class="hero-copy">
+        <p class="eyebrow">Investigación aplicada al sector telecomunicaciones · República Dominicana · {{ site.year }}</p>
+        <h1>{{ site.title }}</h1>
+        <p class="subtitle">{{ site.subtitle }}</p>
+        <p class="lead">{{ site.description }}</p>
+        <div class="actions">
+          <a class="button primary" href="#{{ chapters[1].id if chapters | length > 1 else chapters[0].id }}">Explorar la presentación</a>
+          <a class="button secondary" href="downloads/{{ download_name }}" download>Descargar PowerPoint maestro</a>
+        </div>
+        <p class="byline">{{ site.author }} · {{ site.institution }}{% if site.linkedin %} · <a href="{{ site.linkedin }}" target="_blank" rel="noopener">LinkedIn</a>{% endif %}</p>
+      </div>
+      <button class="hero-slide open-slide" data-slide="1" aria-label="Ampliar portada">
+        <img src="{{ slides[0].image }}" alt="Portada: {{ slides[0].title }}" fetchpriority="high">
+      </button>
+    </div>
+  </header>
+
+  <main id="contenido">
+    <section class="toolbar" aria-label="Herramientas de exploración">
+      <div class="toolbar-inner">
+        <label class="search-box">
+          <span>Buscar en la presentación</span>
+          <input id="search" type="search" placeholder="Ej.: media, Moran, agrupamientos…" autocomplete="off">
+        </label>
+        <div class="document-meta">
+          <span><strong>{{ slides | length }}</strong> diapositivas</span>
+          <span>Actualizado automáticamente desde PowerPoint</span>
+        </div>
+      </div>
+    </section>
+
+    <div id="no-results" class="no-results" hidden>No se encontraron diapositivas para esa búsqueda.</div>
+
+    {% for chapter in chapters %}
+    <section class="chapter" id="{{ chapter.id }}" data-chapter="{{ chapter.id }}">
+      <div class="chapter-heading">
+        <p>Capítulo {{ "%02d" | format(loop.index) }}</p>
+        <h2>{{ chapter.title }}</h2>
+        <span>{{ chapter.slides | length }} diapositiva{% if chapter.slides | length != 1 %}s{% endif %}</span>
+      </div>
+
+      <div class="slide-grid">
+        {% for slide in chapter.slides %}
+        <article class="slide-card" id="diapositiva-{{ slide.number }}"
+          data-search="{{ (slide.title ~ ' ' ~ slide.question ~ ' ' ~ slide.technique ~ ' ' ~ slide.summary ~ ' ' ~ slide.text) | lower }}">
+          <button class="slide-preview open-slide" data-slide="{{ slide.number }}" aria-label="Abrir diapositiva {{ slide.number }}: {{ slide.title }}">
+            <img src="{{ slide.thumbnail }}" alt="Diapositiva {{ slide.number }}: {{ slide.title }}" loading="lazy">
+            <span class="slide-number">{{ "%02d" | format(slide.number) }}</span>
+            <span class="zoom-label">Ampliar</span>
+          </button>
+          <div class="slide-content">
+            {% if slide.technique %}<p class="technique">{{ slide.technique }}</p>{% endif %}
+            <h3>{{ slide.title }}</h3>
+            {% if slide.question %}
+            <div class="research-question"><strong>Pregunta de investigación</strong><p>{{ slide.question }}</p></div>
+            {% endif %}
+            <p class="summary">{{ slide.summary }}</p>
+            {% if slide.embed %}
+            <div class="embed-wrap"><iframe src="{{ slide.embed }}" title="Visualización interactiva de {{ slide.title }}" loading="lazy"></iframe></div>
+            {% endif %}
+          </div>
+        </article>
+        {% endfor %}
+      </div>
+    </section>
+    {% endfor %}
+  </main>
+
+  <footer>
+    <div><strong>{{ site.title }}</strong><span>Documento web generado automáticamente desde el PowerPoint maestro.</span></div>
+    <a href="#inicio">Volver arriba</a>
+  </footer>
+
+  <dialog id="slide-dialog" aria-label="Visor de diapositivas">
+    <button class="dialog-close" type="button" aria-label="Cerrar visor">×</button>
+    <button class="dialog-nav previous" type="button" aria-label="Diapositiva anterior">‹</button>
+    <figure>
+      <img id="dialog-image" src="" alt="">
+      <figcaption><span id="dialog-number"></span><strong id="dialog-title"></strong></figcaption>
+    </figure>
+    <button class="dialog-nav next" type="button" aria-label="Diapositiva siguiente">›</button>
+  </dialog>
+
+  <script id="slide-data" type="application/json">{{ slide_dicts | tojson }}</script>
+  <script src="assets/app.js" defer></script>
+</body>
+</html>
