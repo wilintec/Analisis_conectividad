@@ -29,18 +29,12 @@ chapters:
     title: "Análisis descriptivo: ¿dónde está el centro?"
     start: 2
     end: 11
-  - id: "marco-metodologico"
-    title: "Marco metodológico"
-    start: 12
-    end: 16
+
   - id: "brechas-oportunidades"
     title: "Brechas y oportunidades"
-    start: 17
-    end: 21
-  - id: "agrupamientos"
-    title: "Agrupamientos territoriales"
-    start: 22
+    start: 12
     end: 25
+
   - id: "hallazgos"
     title: "Hallazgos y cierre"
     start: 26
