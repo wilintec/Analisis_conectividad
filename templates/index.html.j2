@@ -39,7 +39,6 @@
         <p class="lead">{{ site.description }}</p>
         <div class="actions">
           <a class="button primary" href="#{{ chapters[1].id if chapters | length > 1 else chapters[0].id }}">Explorar la presentación</a>
-          <a class="button secondary" href="downloads/{{ download_name }}" download>Descargar PowerPoint maestro</a>
         </div>
         <p class="byline">{{ site.author }} · {{ site.institution }}{% if site.linkedin %} · <a href="{{ site.linkedin }}" target="_blank" rel="noopener">LinkedIn</a>{% endif %}</p>
       </div>
